@@ -97,14 +97,23 @@ public class ConverterWindow extends JFrame {
 			System.out.println(result);
 			
 			try{
-				System.out.println("Started Writing");
-				FileWriter output = new FileWriter("CurrencyResults.txt");
-				output.write("Heloooo");
-				System.out.println("Finished Writing");
+				File dest = new File("CurrencyResults.tex");
+				if(!dest.exists()){
+					throw new FileNotFoundException();
+				}
+				PrintWriter output = new PrintWriter(new FileWriter("CurrencyResults.txt", true));
+				output.println(amount + " " + selectedCurrency.getName() + " is equal to " + result + "USD");
+				output.close();
+				}
+				catch(FileNotFoundException z){
+					System.out.println("Error!!! No file found.");
+					System.exit(0);
 				}
 				catch(IOException z){
-					System.out.println("Error!!! No file found.");
+					System.out.println("Error!!! IO error");
+					System.exit(0);
 				}
+			
 		}
 	}
 
